@@ -9,8 +9,6 @@
     local.get $b
     i32.mul
     local.get $c
-    i32.add
-  )
+    i32.add)
 
-  (export "mul_add" (func $mul_add))
-)
+  (export "mul_add" (func $mul_add)))
