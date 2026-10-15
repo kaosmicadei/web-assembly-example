@@ -1,5 +1,8 @@
+.DS_Store
+
 # Workspace config
 .vscode
 
 # Binaries files
 *.wasm
+*.b64

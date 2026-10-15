@@ -10,6 +10,38 @@
 
   <h3>Result <span id="result"></span></h3>
 
-  <script type="module" src="main.js"></script>
+  <script type="module">
+    const mul_add_b64 = "AGFzbQEAAAABCAFgA39/fwF/AwIBAAcLAQdtdWxfYWRkAAAKDAEKACAAIAFsIAJqCw==";
+    
+    // decode base 64
+    const mul_add_bytes = Uint8Array.from(
+      atob(mul_add_b64),
+      char => char.charCodeAt(0)
+    );
+
+    const wasm = await WebAssembly.instantiate(mul_add_bytes);
+    const { mul_add } = wasm.instance.exports;
+
+    document.getElementById("compute").addEventListener("click", () => {
+      const x = parseInt(document.getElementById("x").value);
+      const y = parseInt(document.getElementById("y").value);
+      const z = parseInt(document.getElementById("z").value);
+
+      const result = mul_add(x, y, z);
+      document.getElementById("result").textContent = result;
+    });
+
+    const loop_b64 = "AGFzbQEAAAABCAFgA39/fwF/AwIBAAcMAQhsb29wX2FkZAAACiQBIgECfyAAIQQDQCADQQFqIQMgBCABaiEEIAMgAkgNAAsgBAs=";
+    
+    const loop_bytes = Uint8Array.from(
+      atob(loop_b64),
+      char => char.charCodeAt(0)
+    );
+    
+    const wasm2 = await WebAssembly.instantiate(loop_bytes);
+    const { loop_add } = wasm2.instance.exports;
+
+    window.loop_add = loop_add;
+  </script>
 </body>
 </html>
