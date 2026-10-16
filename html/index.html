@@ -26,10 +26,7 @@
       document.getElementById("result").textContent = result;
     });
 
-    const loop_b64 = "AGFzbQEAAAABCAFgA39/fwF/AwIBAAcMAQhsb29wX2FkZAAACiQBIgECfyAAIQQDQCADQQFqIQMgBCABaiEEIAMgAkgNAAsgBAs=";
-    const loop_bytes = Uint8Array.fromBase64(loop_b64);
-    
-    const wasm2 = await WebAssembly.instantiate(loop_bytes);
+    const wasm2 = await WebAssembly.instantiateStreaming(fetch("./loop.wasm"));
     const { loop_add } = wasm2.instance.exports;
 
     window.loop_add = loop_add;
